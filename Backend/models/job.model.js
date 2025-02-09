@@ -42,7 +42,7 @@ const jobSchema = new mongoose.Schema({
     applications:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Application',
-        default:[]
+        default:null,
     }
 
 })
