@@ -1,12 +1,20 @@
-import User from '../models/user.model';
+import {User} from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+export const homeMessage=(req,res)=>{
+    return res.status(200).json({
+        message:"hi hello",
+        success:true,
+    })
+}
+
 export const register=async (req,res)=>{
     try{
-        const {fullname,email,phoneNumber,role}=req.body;
-        if(!fullname || !email || !password || !role){
-            return res.status(404),json({
+        const {fullname,email,phoneNumber,password,role}=req.body;
+        // console.log(req.body);
+        if(!fullname || !email || !password || !role || !phoneNumber){
+            return res.status(404).json({
                 message:"Missing required fields",
                 success:false,
             });
@@ -28,6 +36,8 @@ export const register=async (req,res)=>{
             password:hashedPassword,
             role,
         })
+
+        await newUser.save();
         return res.status(200).json({
             message:`Accounted created successfully ${fullname}`,
             success:true,
@@ -81,7 +91,7 @@ export const login= async (req,res)=>{
         const token=await jwt.sign(tokenData,process.env.JWT_SECRET,{expiresIn:"1d"});
 
         user={
-            _id:user,_id,
+            _id:user._id,
             fullname:user.fullname,
             email:user.email,
             phoneNumber:user.phoneNumber,
@@ -91,7 +101,7 @@ export const login= async (req,res)=>{
 
         return res.status(200).cookie("token",token,{maxAge:1*24*60*60*1000,
         httpOnly:true,
-        sameSite:strict,
+        sameSite:'strict',
     })
     .json({
         message:`Welcome back ${user.fullname}`,
