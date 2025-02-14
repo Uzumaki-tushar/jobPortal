@@ -12,7 +12,6 @@ export const homeMessage=(req,res)=>{
 export const register=async (req,res)=>{
     try{
         const {fullname,email,phoneNumber,password,role}=req.body;
-        // console.log(req.body);
         if(!fullname || !email || !password || !role || !phoneNumber){
             return res.status(404).json({
                 message:"Missing required fields",
@@ -136,16 +135,13 @@ export const logout= async (req,res)=>{
 export const updateProfile= async(req,res)=>{
     try{
         const {fullname,email,phoneNumber,bio,skills}=req.body;
+        
         const file=req.file;
-        if(!fullname || !email || !phoneNumber || !bio || !skills){
-            return res.status(404).josn({
-                message:"Missing required fields",
-                success: false,
-            })
-        }
+        
 
         // cloudinary upload
-        const skillsArray=skills.split(',');
+        let skillsArray;
+        if(skills)  skillsArray=skills.split(',');
         const userId=req.id; // middleware
         let user= await User.findById(userId);
         if(!user){
@@ -154,16 +150,16 @@ export const updateProfile= async(req,res)=>{
                 success:false,
             })
         }
-        user.fullname=fullname;
-        user.email=email;
-        user.phoneNumber=phoneNumber;
-        user.bio=bio;
-        user.skills=skillsArray;
+        if(fullname)user.fullname=fullname;
+        if(email)user.email=email;
+        if(phoneNumber)user.phoneNumber=phoneNumber;
+        if(bio)user.profile.bio=bio;
+        if(skills)user.profile.skills=skillsArray;
         // resume
         await user.save();
 
         user={
-            _id:user,_id,
+            _id:user._id,
             fullname:user.fullname,
             email:user.email,
             phoneNumber:user.phoneNumber,
@@ -179,7 +175,7 @@ export const updateProfile= async(req,res)=>{
 
     }
     catch(error){
-        res.status(500).josn({
+        res.status(500).json({
             message:"Server Error profile update",
             success:false,
         })
