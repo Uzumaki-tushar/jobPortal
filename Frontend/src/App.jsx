@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from './components/ui/button';
+import Navbar from './components/components_lite/Navbar';
 
 const App = () => {
   return (
-    <h1 className='text-red-500'>Job Portal</h1>
-    // <Button></Button>
+    <>
+    <Navbar/>
+    </>
   )
 }
 
