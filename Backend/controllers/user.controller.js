@@ -12,6 +12,7 @@ export const homeMessage=(req,res)=>{
 export const register=async (req,res)=>{
     try{
         const {fullname,email,phoneNumber,password,role}=req.body;
+        // console.log(req.body);
         if(!fullname || !email || !password || !role || !phoneNumber){
             return res.status(404).json({
                 message:"Missing required fields",
@@ -54,6 +55,7 @@ export const register=async (req,res)=>{
 export const login= async (req,res)=>{
     try{
         const {email,password,role}=req.body;
+        // console.log(email,password,role);
         if(!email || !password || !role){
             return res.status(404).json({
                 message:"Missing required fields",
