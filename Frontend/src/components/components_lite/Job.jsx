@@ -4,31 +4,34 @@ import { Bookmark } from "lucide-react";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import avatarImage from "../../assets/images/JobPortal.jpg";
 import { Badge } from "../ui/badge";
+import { useNavigate } from "react-router-dom";
 
 const Job = () => {
+  const navigate = useNavigate();
+  const jobId="khkhkjhkk";
+
   return (
     <div className="p-5 rounded-md shadow-xl bg-white border border-gray-200 cursor-pointer hover:shadow-2xl hover:shadow-blue-200 hover:p-3 box-border">
-        <div className="flex itmes-center justify-between">
+      <div className="flex itmes-center justify-between">
         <p className="text-sm text-gray-600">3 days ago</p>
-      <Button variant="outline" className="rounded-full " size="icon">
-        <Bookmark />
-      </Button>
-        </div>
+        <Button variant="outline" className="rounded-full " size="icon">
+          <Bookmark />
+        </Button>
+      </div>
 
       <div className="flex items-center gap-2 my-2">
-
         <div>
-          <div >
+          <div>
             <div className="flex items-center gap-2">
-            <Button className="p-2" variant="outline">
-          <Avatar className="w-8 h-8 overflow-hidden rounded-full">
-            <AvatarImage
-              className="object-cover w-full h-full"
-              src={avatarImage}
-            ></AvatarImage>
-          </Avatar>
-        </Button>
-            <h1 className="text-lg font-medium">Company Name</h1>
+              <Button className="p-2" variant="outline">
+                <Avatar className="w-8 h-8 overflow-hidden rounded-full">
+                  <AvatarImage
+                    className="object-cover w-full h-full"
+                    src={avatarImage}
+                  ></AvatarImage>
+                </Avatar>
+              </Button>
+              <h1 className="text-lg font-medium">Company Name</h1>
             </div>
             <p className="text-sm text-gray-600">India</p>
           </div>
@@ -56,8 +59,18 @@ const Job = () => {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <Button variant="outline" className="rounded-md">Details</Button>
-        <Button variant="outline" className="rounded-md">Save For Later</Button>
+        <Button
+          onClick={() => {
+            navigate(`/description/${jobId}`);
+          }}
+          variant="outline"
+          className="rounded-md"
+        >
+          Details
+        </Button>
+        <Button variant="outline" className="rounded-md">
+          Save For Later
+        </Button>
       </div>
     </div>
   );

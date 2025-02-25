@@ -8,6 +8,9 @@ import Home from "./components/components_lite/Home";
 import PrivacyPolicy from "./components/components_lite/PrivacyPolicy";
 import TermsAndServices from "./components/components_lite/TermsOfServices";
 import Jobs from "./components/components_lite/Jobs";
+import Browse from "./components/components_lite/Browse";
+import Profile from "./components/components_lite/Profile";
+import Description from "./components/components_lite/Description";
 
 const appRouter = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -29,6 +32,15 @@ const appRouter = createBrowserRouter([
   },{
     path:"/jobs",
     element:<Jobs/>
+  },{
+    path:"/browse",
+    element:<Browse/>
+  },{
+    path:"/profile",
+    element:<Profile/>
+  },{
+    path:"/description/:id",
+    element:<Description/>
   }
 ]);
 
